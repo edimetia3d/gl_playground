@@ -10,18 +10,18 @@
 #include "glShader_t.h"
 #include <vector>
 
-struct Vec3 {
-    float x;
-    float y;
-    float z;
-};
-
-struct Vec2 {
-    float x;
-    float y;
-};
-
 struct AssimpVertex {
+    struct Vec3 {
+        float x;
+        float y;
+        float z;
+    };
+
+    struct Vec2 {
+        float x;
+        float y;
+    };
+
     // position
     Vec3 position;
     // normal
@@ -66,14 +66,25 @@ enum class TextureType {
     HEIGHT
 };
 
-static const std::string diffuse_base_name = "texture_diffuse";
-static const std::string specular_base_name = "texture_specular";
-static const std::string normal_base_name = "texture_normal";
-static const std::string height_base_name = "texture_height";
+std::string GetNameString(TextureType type) {
+    switch (type) {
+        case TextureType::DIFFUSE :
+            return "texture_diffuse";
+        case TextureType::SPECULAR:
+            return "texture_specular";
+        case TextureType::NORMAL:
+            return "texture_normal";
+        case TextureType::HEIGHT:
+            return "texture_height";
+        default:
+            return "";
+    }
+
+}
 
 class AssimpMesh_t {
 public:
-    void Draw(glShaderProgram_t &the_shader, const std::vector<std::string> &texture_names) {
+    void Draw(glShaderProgram_t &the_shader, const std::vector<std::string> &texture_names = {}) {
         auto p_to_name = texture_names_.cbegin();
         if (!texture_names.empty()) {
             p_to_name = texture_names.cbegin();
@@ -91,16 +102,16 @@ public:
         std::string name_in_shader;
         switch (type) {
             case TextureType::DIFFUSE :
-                name_in_shader = diffuse_base_name + std::to_string(diffuse_last_++);
+                name_in_shader = GetNameString(type) + std::to_string(diffuse_last_++);
                 break;
             case TextureType::SPECULAR:
-                name_in_shader = specular_base_name + std::to_string(specular_last_++);
+                name_in_shader = GetNameString(type) + std::to_string(specular_last_++);
                 break;
             case TextureType::NORMAL:
-                name_in_shader = normal_base_name + std::to_string(normal_last_++);
+                name_in_shader = GetNameString(type) + std::to_string(normal_last_++);
                 break;
             case TextureType::HEIGHT:
-                name_in_shader = height_base_name + std::to_string(height_last_++);
+                name_in_shader = GetNameString(type) + std::to_string(height_last_++);
                 break;
         }
         textures_.push_back(texture);

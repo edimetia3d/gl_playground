@@ -34,3 +34,5 @@ add_executable(transfrom_2d ./transfrom_2d/transfrom2d.cpp)
 add_executable(transform_3d ./transform_3d/transform3d.cpp)
 
 add_executable(simple_light ./simple_light/simple_light.cpp)
+
+add_executable(simple_assimp ./simple_assimp/simple_assimp.cpp)

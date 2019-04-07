@@ -14,6 +14,14 @@ void glTexture2D_t::LoadFromFile(const std::string &file_path,
                                   GLenum host_data_type) {
     int width, height, nrChannels;
     unsigned char *data = stbi_load(file_path.c_str(), &width, &height, &nrChannels, 0);
+    if (host_type == GL_RGB && nrChannels != 3) {
+        if (nrChannels == 1) {
+            host_type = GL_RED;
+        }
+        if (nrChannels == 4) {
+            host_type = GL_RGBA;
+        }
+    }
     LoadFromBuffer(data,width,height,device_type,host_type,host_data_type);
     stbi_image_free(data);
 }
