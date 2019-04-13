@@ -13,6 +13,7 @@
 #include <glad/glad.h>
 
 #include "UnCopyable.h"
+#include "glTexture2D_t.h"
 
 template<GLenum SHADER_TYPE>
 class glShader_t : public UnCopyable {
@@ -111,6 +112,12 @@ public:
 
         InitByStr(vtx_strings, frag_strings);
 
+    }
+
+    void SetTexture(glTexture2D_t &texture, std::string var_name_in_shader, int unit_id) {
+        Active();
+        glUniform1i(glGetUniformLocation(handle_, var_name_in_shader.c_str()), unit_id);
+        texture.SetUnitID(unit_id);
     }
 
     GLuint GetHandle() {

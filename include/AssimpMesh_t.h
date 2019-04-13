@@ -90,7 +90,7 @@ public:
             p_to_name = texture_names.cbegin();
         }
         for (unsigned int i = 0; i < textures_.size(); i++) {
-            textures_[i]->BindToShaderProgram(the_shader, *p_to_name, i);
+            the_shader.SetTexture(*textures_[i], *p_to_name, i);
             textures_[i]->Active();
             ++p_to_name;
         }

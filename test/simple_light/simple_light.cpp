@@ -60,10 +60,10 @@ struct Container {
         program.InitByFile({build_dir + "/container.vert"}, {build_dir + "/container.frag"});
 
         diffuse_texture.LoadFromFile(build_dir + "/container.png", GL_RGB, GL_RGBA);
-        diffuse_texture.BindToShaderProgram(program, "material.diffuse", 0);
+        program.SetTexture(diffuse_texture, "material.diffuse", 0);
 
         specular_texture.LoadFromFile(build_dir+"/container_specular.png",GL_RGB,GL_RGBA);
-        specular_texture.BindToShaderProgram(program,"material.specular",1);
+        program.SetTexture(specular_texture, "material.specular", 1);
     }
 
     void SetLightColor(float r,float g,float b) {

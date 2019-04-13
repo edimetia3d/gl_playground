@@ -58,7 +58,7 @@ struct SquareWithTexture {
         program.InitByFile({build_dir + "/square_with_texture.vert"}, {build_dir + "/square_with_texture.frag"});
 
         tile_texture.LoadFromFile(build_dir + "/smile_face.png", GL_RGB, GL_RGBA);
-        tile_texture.BindToShaderProgram(program, "tile_txture", 6);
+        program.SetTexture(tile_texture, "tile_txture", 6);
     }
 
     void Display(ExGLFWwindow *window) {

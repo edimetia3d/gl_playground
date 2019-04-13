@@ -9,7 +9,6 @@
 
 #include <glad/glad.h>
 
-#include "glShader_t.h"
 #include "UnCopyable.h"
 
 class glTexture2D_t : public UnCopyable {
@@ -27,9 +26,7 @@ public:
         glBindTexture(GL_TEXTURE_2D, handle_);
     }
 
-    void BindToShaderProgram(glShaderProgram_t &shader_program, std::string var_name_in_shader, int unit_id) {
-        shader_program.Active();
-        glUniform1i(glGetUniformLocation(shader_program.GetHandle(), var_name_in_shader.c_str()), unit_id);
+    void SetUnitID(int unit_id) {
         unit_id_ = unit_id;
         Active();
     }
@@ -45,9 +42,21 @@ public:
                         GLenum device_format = GL_RGB,
                         GLenum host_format = GL_RGB,
                         GLenum host_data_type = GL_UNSIGNED_BYTE) {
+        width_ = width;
+        height_ = height;
+        device_format_ = device_format;
+        host_format_ = host_format;
+        host_data_type_ = host_data_type;
         Active();
-        glTexImage2D(GL_TEXTURE_2D, 0, device_format, width, height, 0, host_format, host_data_type, source);
+        glTexImage2D(GL_TEXTURE_2D, 0, device_format_, width_, height_, 0, host_format_, host_data_type_, source);
         glGenerateMipmap(GL_TEXTURE_2D);
+    }
+
+    /**
+     * Resize will clear all the data.
+     */
+    void Resize(int width, int height) {
+        LoadFromBuffer(NULL, width, height, device_format_, host_format_, host_data_type_);
     }
 
     GLuint GetHandle() {
@@ -57,6 +66,11 @@ public:
 private:
     unsigned int handle_;
     int unit_id_ = 0;
+    GLenum device_format_;
+    GLenum host_format_;
+    GLenum host_data_type_;
+    int width_;
+    int height_;
 };
 
 
