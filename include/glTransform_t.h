@@ -5,7 +5,7 @@
 #ifndef GL_PLAYGROUND_GLMATRIX_T_H
 #define GL_PLAYGROUND_GLMATRIX_T_H
 
-#include "glShader_t.h"
+#include <memory>
 
 namespace MatrixPrivate {
     struct glMatrix_Impl;
@@ -41,8 +41,6 @@ public:
                      float far_plane_dist);
 
     void Ortho(float window_width, float window_height, float near_plane_dist, float far_plane_dist);
-
-    void SetToShaderProgram(glShaderProgram_t &shader_program, std::string var_name_in_shader);
 
     float *Data();
 

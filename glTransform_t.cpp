@@ -27,14 +27,6 @@ void glTransform_t::Scale(float ratio_x, float ratio_y, float ratio_z) {
     data->mat = glm::scale(glm::vec3(ratio_x, ratio_y, ratio_z)) * data->mat;
 }
 
-void glTransform_t::SetToShaderProgram(glShaderProgram_t &shader_program, std::string var_name_in_shader) {
-    shader_program.Active();
-    glUniformMatrix4fv(glGetUniformLocation(shader_program.GetHandle(), var_name_in_shader.c_str()),
-                       1,
-                       GL_FALSE,
-                       Data());
-}
-
 float *glTransform_t::Data() {
     return glm::value_ptr(data->mat);
 }

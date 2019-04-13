@@ -95,7 +95,7 @@ struct Container {
     }
 
     void SetTransFrom(glTransform_t &transform, const std::string &var_name_in_shader) {
-        transform.SetToShaderProgram(program, var_name_in_shader);
+        program.SetTransform(transform, var_name_in_shader);
     }
 
     glShaderProgram_t program;
@@ -127,7 +127,7 @@ struct LightCube {
     }
 
     void SetTransFrom(glTransform_t &transform, const std::string &var_name_in_shader) {
-        transform.SetToShaderProgram(program, var_name_in_shader);
+        program.SetTransform(transform, var_name_in_shader);
     }
     glShaderProgram_t program;
     glVertexArray_t<Point_Normal_TexturePos<float>> vtx_array;

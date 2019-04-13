@@ -68,7 +68,7 @@ struct SquareWithTexture {
     }
 
     void SetTransFrom(glTransform_t &transform, const std::string &var_name_in_shader) {
-        transform.SetToShaderProgram(program, var_name_in_shader);
+        program.SetTransform(transform, var_name_in_shader);
     }
 
     glShaderProgram_t program;

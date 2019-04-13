@@ -14,6 +14,7 @@
 
 #include "UnCopyable.h"
 #include "glTexture2D_t.h"
+#include "glTransform_t.h"
 
 template<GLenum SHADER_TYPE>
 class glShader_t : public UnCopyable {
@@ -118,6 +119,14 @@ public:
         Active();
         glUniform1i(glGetUniformLocation(handle_, var_name_in_shader.c_str()), unit_id);
         texture.SetUnitID(unit_id);
+    }
+
+    void SetTransform(glTransform_t &transform, std::string var_name_in_shader) {
+        Active();
+        glUniformMatrix4fv(glGetUniformLocation(handle_, var_name_in_shader.c_str()),
+                           1,
+                           GL_FALSE,
+                           transform.Data());
     }
 
     GLuint GetHandle() {

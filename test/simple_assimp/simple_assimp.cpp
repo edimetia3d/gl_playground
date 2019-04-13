@@ -39,9 +39,9 @@ int main(int argc, char *argv[]) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         auto view = in->GetCameraTranform();
-        view.SetToShaderProgram(shader, "view");
+        shader.SetTransform(view, "view");
         glTransform_t model_trans;
-        model_trans.SetToShaderProgram(shader, "model");
+        shader.SetTransform(model_trans, "model");
         assimp_model.Draw(shader);
     };
 
