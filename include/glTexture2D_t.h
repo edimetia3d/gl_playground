@@ -35,18 +35,18 @@ public:
     }
 
     void LoadFromFile(const std::string &file_path,
-                      GLenum device_type = GL_RGB,
-                      GLenum host_type = GL_RGB,
+                      GLenum device_format = GL_RGB,
+                      GLenum host_format = GL_RGB,
                       GLenum host_data_type = GL_UNSIGNED_BYTE);
 
     void LoadFromBuffer(void *source,
                         int width,
                         int height,
-                        GLenum device_type = GL_RGB,
-                        GLenum host_type = GL_RGB,
+                        GLenum device_format = GL_RGB,
+                        GLenum host_format = GL_RGB,
                         GLenum host_data_type = GL_UNSIGNED_BYTE) {
         Active();
-        glTexImage2D(GL_TEXTURE_2D, 0, device_type, width, height, 0, host_type, host_data_type, source);
+        glTexImage2D(GL_TEXTURE_2D, 0, device_format, width, height, 0, host_format, host_data_type, source);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
 

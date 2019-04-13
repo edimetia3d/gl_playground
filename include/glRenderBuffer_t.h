@@ -8,14 +8,14 @@
 #include <glad/glad.h>
 #include "UnCopyable.h"
 
-class glRenderBuffer_t {
+class glRenderBuffer_t : public UnCopyable {
 public:
-    glRenderBuffer_t(GLenum device_type, int width = 800, int height = 600)
-            : device_type_(device_type),
+    glRenderBuffer_t(GLenum device_format, int width = 800, int height = 600)
+            : device_format_(device_format),
               width_(width),
               height_(height) {
         glGenRenderbuffers(1, &handle_);
-        glRenderbufferStorage(GL_RENDERBUFFER, device_type_, width_, height_);
+        glRenderbufferStorage(GL_RENDERBUFFER, device_format_, width_, height_);
     }
 
     ~glRenderBuffer_t() {
@@ -30,7 +30,7 @@ public:
         width_ = width;
         height_ = height;
         Active();
-        glRenderbufferStorage(GL_RENDERBUFFER, device_type_, width_, height_);
+        glRenderbufferStorage(GL_RENDERBUFFER, device_format_, width_, height_);
     }
 
     GLuint GetHandle() {
@@ -41,7 +41,7 @@ private:
     GLuint handle_;
     int width_;
     int height_;
-    GLenum device_type_;
+    GLenum device_format_;
 };
 
 

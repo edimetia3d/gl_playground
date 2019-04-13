@@ -9,20 +9,20 @@
 
 
 void glTexture2D_t::LoadFromFile(const std::string &file_path,
-                                  GLenum device_type,
-                                  GLenum host_type,
-                                  GLenum host_data_type) {
+                                 GLenum device_format,
+                                 GLenum host_format,
+                                 GLenum host_data_type) {
     int width, height, nrChannels;
     unsigned char *data = stbi_load(file_path.c_str(), &width, &height, &nrChannels, 0);
-    if (host_type == GL_RGB && nrChannels != 3) {
+    if (host_format == GL_RGB && nrChannels != 3) {
         if (nrChannels == 1) {
-            host_type = GL_RED;
+            host_format = GL_RED;
         }
         if (nrChannels == 4) {
-            host_type = GL_RGBA;
+            host_format = GL_RGBA;
         }
     }
-    LoadFromBuffer(data,width,height,device_type,host_type,host_data_type);
+    LoadFromBuffer(data, width, height, device_format, host_format, host_data_type);
     stbi_image_free(data);
 }
 
