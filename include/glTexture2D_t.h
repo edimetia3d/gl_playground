@@ -22,12 +22,12 @@ public:
     }
 
     void Active() {
-        glActiveTexture(GL_TEXTURE0 + unit_id_);
         glBindTexture(GL_TEXTURE_2D, handle_);
     }
 
     void SetUnitID(int unit_id) {
         unit_id_ = unit_id;
+        glActiveTexture(GL_TEXTURE0 + unit_id_);
         Active();
     }
 

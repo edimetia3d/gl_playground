@@ -78,6 +78,13 @@ public:
      */
     int Show();
 
+    int GetBufferWidth() {
+        return buffer_width_;
+    }
+
+    int GetBufferHeight() {
+        return buffer_height_;
+    }
 private:
     GLFWwindow *window_ = nullptr;
     int buffer_width_;

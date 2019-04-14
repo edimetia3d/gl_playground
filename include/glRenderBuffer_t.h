@@ -10,11 +10,15 @@
 
 class glRenderBuffer_t : public UnCopyable {
 public:
-    glRenderBuffer_t(GLenum device_format, int width = 800, int height = 600)
-            : device_format_(device_format),
-              width_(width),
-              height_(height) {
+    glRenderBuffer_t() {
         glGenRenderbuffers(1, &handle_);
+    }
+
+    void Init(GLenum device_format, int width = 800, int height = 600) {
+        Active();
+        width_ = width;
+        height_ = height;
+        device_format_ = device_format;
         glRenderbufferStorage(GL_RENDERBUFFER, device_format_, width_, height_);
     }
 
