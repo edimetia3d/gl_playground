@@ -93,9 +93,9 @@ void glSkyBox_t::Init(std::string right, std::string left, std::string top, std:
 
 void glSkyBox_t::Display(glTransform_t view_only, glTransform_t projection_only) {
     float (*f)[4] = (float (*)[4]) view_only.Data();
-    f[3][0] = 0;
-    f[3][1] = 0;
-    f[3][2] = 0;
+    f[3][0] /= 300;
+    f[3][1] /= 300;
+    f[3][2] /= 300;
     projection_only.RightMul(view_only);
     shader.SetTransform(projection_only, "view");
     shader.Active();
