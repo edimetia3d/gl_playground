@@ -71,13 +71,13 @@ static float skyboxVertices[] = {
         1.0f, -1.0f, 1.0f
 };
 
-void glSkyBox_t::Init(std::string base_dir) {
-    Init(base_dir + "/right.jpg",
-         base_dir + "/left.jpg",
-         base_dir + "/top.jpg",
-         base_dir + "/bottom.jpg",
-         base_dir + "/front.jpg",
-         base_dir + "/back.jpg");
+void glSkyBox_t::Init(std::string base_dir, std::string file_type) {
+    Init(base_dir + "/right" + file_type,
+         base_dir + "/left" + file_type,
+         base_dir + "/top" + file_type,
+         base_dir + "/bottom" + file_type,
+         base_dir + "/front" + file_type,
+         base_dir + "/back" + file_type);
 }
 
 void glSkyBox_t::Init(std::string right, std::string left, std::string top, std::string bottom, std::string front,

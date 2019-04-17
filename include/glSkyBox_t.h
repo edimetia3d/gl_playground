@@ -32,7 +32,7 @@ struct DefineVertexAttrib<SkyBoxPoint<float>> {
 
 class glSkyBox_t : public UnCopyable {
 public:
-    void Init(std::string base_dir);
+    void Init(std::string base_dir, std::string file_type = ".jpg");
     void
     Init(std::string right, std::string left, std::string top, std::string bottom, std::string front, std::string back);
 
