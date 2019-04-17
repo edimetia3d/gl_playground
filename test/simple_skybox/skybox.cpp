@@ -20,15 +20,14 @@ static std::string GetBuildDir() {
 int main() {
     GLFWGuard glfw_guard;
     ExGLFWwindow window;
-    window.Init("3D World");
+    window.Init("Just SkyBox");
     window.EnableCursor(false);
 
     glSkyBox_t skybox;
     skybox.Init(GetBuildDir() + "/skybox");
 
-    glEnable(GL_DEPTH_TEST);// Enable Depth Test globaly
+    glEnable(GL_DEPTH_TEST);
     auto render_fun = [&](ExGLFWwindow *in, double last_frame_duration) {
-
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         skybox.Display(in->GetCameraViewOnly(), in->GetCameraProjectionOnly());
