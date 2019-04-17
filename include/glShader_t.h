@@ -13,7 +13,6 @@
 #include <glad/glad.h>
 
 #include "UnCopyable.h"
-#include "glTexture2D_t.h"
 #include "glTransform_t.h"
 
 template<GLenum SHADER_TYPE>
@@ -115,7 +114,8 @@ public:
 
     }
 
-    void SetTexture(glTexture2D_t &texture, std::string var_name_in_shader, int unit_id) {
+    template<class T>
+    void SetTexture(T &texture, std::string var_name_in_shader, int unit_id) {
         Active();
         glUniform1i(glGetUniformLocation(handle_, var_name_in_shader.c_str()), unit_id);
         texture.SetUnitID(unit_id);

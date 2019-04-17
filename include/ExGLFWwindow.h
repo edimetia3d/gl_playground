@@ -61,6 +61,14 @@ public:
         return camera_.GetTransfrom();
     }
 
+    glTransform_t GetCameraViewOnly() {
+        return camera_.GetViewOnly();
+    }
+
+    glTransform_t GetCameraProjectionOnly() {
+        return camera_.GetProjectionOnly();
+    }
+
     glm::vec3 GetCameraPos(){
         return camera_.GetCameraPos();
     }

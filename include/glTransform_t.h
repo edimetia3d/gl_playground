@@ -19,7 +19,13 @@ public:
 
     ~glTransform_t();
 
-    glTransform_t(glTransform_t &&rval);
+    glTransform_t(const glTransform_t &rval);
+
+    glTransform_t(glTransform_t &&rval) noexcept;
+
+    glTransform_t &operator=(const glTransform_t &rval);
+
+    glTransform_t &operator=(glTransform_t &&rval) noexcept;
 
     void Reset();
 

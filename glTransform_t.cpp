@@ -35,6 +35,25 @@ glTransform_t::glTransform_t() {
     data = std::make_unique<glMatrix_Impl>();
 }
 
+glTransform_t::glTransform_t(const glTransform_t &rval) {
+    data = std::make_unique<glMatrix_Impl>();
+    data->mat = rval.data->mat;
+}
+
+glTransform_t::glTransform_t(glTransform_t &&rval) noexcept {
+    data = std::move(rval.data);
+}
+
+glTransform_t &glTransform_t::operator=(const glTransform_t &rval) {
+    data->mat = rval.data->mat;
+    return *this;
+}
+
+glTransform_t &glTransform_t::operator=(glTransform_t &&rval) noexcept {
+    data = std::move(rval.data);
+    return *this;
+}
+
 void glTransform_t::RightMul(const glTransform_t &rhand) {
     data->mat *= rhand.data->mat;
 }
@@ -42,11 +61,6 @@ void glTransform_t::RightMul(const glTransform_t &rhand) {
 glTransform_t::~glTransform_t() {
 
 }
-
-glTransform_t::glTransform_t(glTransform_t &&rval) {
-    data = std::move(rval.data);
-}
-
 
 void glTransform_t::Reset() {
     data->mat = glm::mat4(1.0f);

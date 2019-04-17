@@ -19,6 +19,10 @@ public:
 
     glTransform_t GetTransfrom(bool use_perspective = true);
 
+    glTransform_t GetViewOnly();
+
+    glTransform_t GetProjectionOnly(bool use_perspective = true);
+
     void SetWidth(float width) {
         width_ = width;
     }

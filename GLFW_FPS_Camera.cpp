@@ -76,3 +76,27 @@ glTransform_t GLFW_FPS_Camera::GetTransfrom(bool use_perspective) {
     return ret;
 
 }
+
+glTransform_t GLFW_FPS_Camera::GetViewOnly() {
+    glTransform_t ret;
+    ret.LookAt(cameraAt.x,
+               cameraAt.y,
+               cameraAt.z,
+               cameraAt.x + cameraDirection.x,
+               cameraAt.y + cameraDirection.y,
+               cameraAt.z + cameraDirection.z,
+               cameraUp.x,
+               cameraUp.y,
+               cameraUp.z);
+    return ret;
+}
+
+glTransform_t GLFW_FPS_Camera::GetProjectionOnly(bool use_perspective) {
+    glTransform_t ret;
+    if (use_perspective) {
+        ret.Perspective(fov_, width_ / height_, near_dist_, far_dist_);
+    } else {
+        ret.Ortho(width_, height_, near_dist_, far_dist_);
+    }
+    return ret;
+}
