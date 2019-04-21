@@ -22,7 +22,9 @@ public:
     }
 
     void Active() {
-        glActiveTexture(GL_TEXTURE0 + unit_id_);
+        if (unit_id_ != -1) {
+            glActiveTexture(GL_TEXTURE0 + unit_id_);
+        }
         glBindTexture(GL_TEXTURE_2D, handle_);
     }
 
@@ -47,7 +49,7 @@ public:
         device_format_ = device_format;
         host_format_ = host_format;
         host_data_type_ = host_data_type;
-        Active();
+        glBindTexture(GL_TEXTURE_2D, handle_);
         glTexImage2D(GL_TEXTURE_2D, 0, device_format_, width_, height_, 0, host_format_, host_data_type_, source);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
@@ -65,7 +67,7 @@ public:
 
 private:
     unsigned int handle_;
-    int unit_id_ = 0;
+    int unit_id_ = -1;
     GLenum device_format_;
     GLenum host_format_;
     GLenum host_data_type_;
