@@ -15,17 +15,21 @@
 #include "UnCopyable.h"
 #include "glTransform_t.h"
 
-template<GLenum SHADER_TYPE>
 class glShader_t : public UnCopyable {
 public:
-    glShader_t() {
-        handle_ = glCreateShader(SHADER_TYPE);
-    }
 
     ~glShader_t() {
-        glDeleteShader(handle_);
+        if (shader_type_) {
+            glDeleteShader(handle_);
+        }
     }
 
+    void Init(GLenum shader_type) {
+        if (!shader_type_) {
+            shader_type_ = shader_type;
+            handle_ = glCreateShader(shader_type_);
+        }
+    }
     bool Compile(const std::vector<std::string> &source_codes) {
         std::vector<const char *> codes_array(source_codes.size(), nullptr);
         for (int i = 0; i < source_codes.size(); ++i) {
@@ -51,10 +55,8 @@ public:
 
 private:
     GLuint handle_;
+    GLenum shader_type_ = 0;
 };
-
-using VertexShader_t=glShader_t<GL_VERTEX_SHADER>;
-using FragmentShader_t=glShader_t<GL_FRAGMENT_SHADER>;
 
 class glShaderProgram_t : public UnCopyable {
 public:
@@ -70,9 +72,14 @@ public:
         glUseProgram(handle_);
     }
 
-    bool Link(VertexShader_t &vtx, FragmentShader_t &frag) {
-        glAttachShader(handle_, vtx.GetHandle());
-        glAttachShader(handle_, frag.GetHandle());
+    void AttachShader(glShader_t &shader) {
+        Active();
+        glAttachShader(handle_, shader.GetHandle());
+    }
+
+    bool Link() {
+        Active();
+
         glLinkProgram(handle_);
 
         int success;
@@ -85,15 +92,20 @@ public:
         return success;
     }
 
-    void InitByStr(const std::vector<std::string> &all_vtx_code, const std::vector<std::string> &all_frag_code) {
-        VertexShader_t vtx;
+    void InitVtxFragByStr(const std::vector<std::string> &all_vtx_code, const std::vector<std::string> &all_frag_code) {
+        glShader_t vtx;
+        vtx.Init(GL_VERTEX_SHADER);
         vtx.Compile(all_vtx_code);
-        FragmentShader_t frag;
+        AttachShader(vtx);
+        glShader_t frag;
+        frag.Init(GL_FRAGMENT_SHADER);
         frag.Compile(all_frag_code);
-        Link(vtx, frag);
+        AttachShader(frag);
+        Link();
     }
 
-    void InitByFile(const std::vector<std::string> &all_vtx_filepath, const std::vector<std::string> &all_frag_filepath) {
+    void InitVtxFragByFile(const std::vector<std::string> &all_vtx_filepath,
+                           const std::vector<std::string> &all_frag_filepath) {
 
         std::vector<std::string> vtx_strings;
         std::vector<std::string> frag_strings;
@@ -110,7 +122,7 @@ public:
             frag_strings.push_back(std::move(frag_string));
         }
 
-        InitByStr(vtx_strings, frag_strings);
+        InitVtxFragByStr(vtx_strings, frag_strings);
 
     }
 

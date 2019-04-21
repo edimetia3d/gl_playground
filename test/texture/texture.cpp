@@ -51,7 +51,8 @@ struct TriangleWithTexture {
         memcpy(&host_buf[0].pos_x, vertices, sizeof(vertices));
         vtx_array.SyncToDevice();
         std::string build_dir = GetBuildDir();
-        program.InitByFile({build_dir + "/triangle_with_texture.vert"}, {build_dir + "/triangle_with_texture.frag"});
+        program.InitVtxFragByFile({build_dir + "/triangle_with_texture.vert"},
+                                  {build_dir + "/triangle_with_texture.frag"});
 
         tile_texture.LoadFromFile(build_dir + "/tile.jpg");
         program.SetTexture(tile_texture, "tile_txture", 6);

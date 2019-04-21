@@ -58,7 +58,7 @@ struct SimpleTriangle {
         memcpy(&host_buf[0].x, vertices, sizeof(vertices));
         vtx_array.SyncToDevice();
 
-        program.InitByStr({vertexShaderSource}, {fragmentShaderSource});
+        program.InitVtxFragByStr({vertexShaderSource}, {fragmentShaderSource});
 
     }
 

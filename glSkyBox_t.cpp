@@ -83,7 +83,7 @@ void glSkyBox_t::Init(std::string base_dir, std::string file_type) {
 void glSkyBox_t::Init(std::string right, std::string left, std::string top, std::string bottom, std::string front,
                       std::string back) {
     cube_texture.LoadFromFile({right, left, top, bottom, front, back});
-    shader.InitByStr({std::string(vert_code)}, {std::string(frag_code)});
+    shader.InitVtxFragByStr({std::string(vert_code)}, {std::string(frag_code)});
     auto &vertex = cube_vertex.GetVertexBuffer();
     shader.SetTexture(cube_texture, "skybox", 0);
     vertex.resize(36);

@@ -49,7 +49,7 @@ struct CubeWithTexture {
         vtx_array.SyncToDevice();
 
         std::string build_dir = GetBuildDir();
-        program.InitByFile({build_dir + "/cube_with_texture.vert"}, {build_dir + "/cube_with_texture.frag"});
+        program.InitVtxFragByFile({build_dir + "/cube_with_texture.vert"}, {build_dir + "/cube_with_texture.frag"});
 
         tile_texture.LoadFromFile(build_dir + "/smile_face.png", GL_RGB, GL_RGBA);
         program.SetTexture(tile_texture, "tile_txture", 6);

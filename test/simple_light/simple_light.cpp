@@ -57,7 +57,7 @@ struct Container {
         vtx_array.SyncToDevice();
 
         std::string build_dir = GetBuildDir();
-        program.InitByFile({build_dir + "/container.vert"}, {build_dir + "/container.frag"});
+        program.InitVtxFragByFile({build_dir + "/container.vert"}, {build_dir + "/container.frag"});
 
         diffuse_texture.LoadFromFile(build_dir + "/container.png", GL_RGB, GL_RGBA);
         program.SetTexture(diffuse_texture, "material.diffuse", 0);
@@ -114,7 +114,7 @@ struct LightCube {
         memcpy(&host_buf[0].pos_x, vertices, sizeof(vertices));
         vtx_array.SyncToDevice();
         std::string build_dir = GetBuildDir();
-        program.InitByFile({build_dir + "/light.vert"}, {build_dir + "/light.frag"});
+        program.InitVtxFragByFile({build_dir + "/light.vert"}, {build_dir + "/light.frag"});
     }
 
     void SetColor(float r,float g,float b) {

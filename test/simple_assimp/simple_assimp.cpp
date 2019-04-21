@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     assimp_model.loadModel(argv[1]);
 
     glShaderProgram_t shader;
-    shader.InitByFile({GetBuildDir() + "/simple_assimp.vert"}, {GetBuildDir() + "/simple_assimp.frag"});
+    shader.InitVtxFragByFile({GetBuildDir() + "/simple_assimp.vert"}, {GetBuildDir() + "/simple_assimp.frag"});
 
 
     glEnable(GL_DEPTH_TEST);// Enable Depth Test globaly
