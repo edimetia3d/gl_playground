@@ -10,6 +10,15 @@
 #include <glad/glad.h>
 #include "UnCopyable.h"
 
+/**
+ * User must specialize this tempalte
+ * @tparam Element_t
+ */
+template<class Element_t>
+struct DefineVertexAttrib {
+    static void Define();
+};
+
 template<class Element_t, GLenum BUFFER_TYPE>
 class glBuffer_t : public UnCopyable {
 public:
@@ -75,6 +84,11 @@ public:
 
     GLuint GetHandle() {
         return handle_;
+    }
+
+    void DescribeData() {
+        Active();
+        DefineVertexAttrib<Element_t>::Define();
     }
 
 private:

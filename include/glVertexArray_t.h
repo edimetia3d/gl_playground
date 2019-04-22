@@ -7,14 +7,7 @@
 
 #include "glBuffer_t.h"
 
-/**
- * User must specialize this tempalte
- * @tparam Element_t
- */
-template<class Element_t>
-struct DefineVertexAttrib {
-    static void Define();
-};
+
 
 template<class Element_t>
 class glVertexArray_t : public UnCopyable {
@@ -24,7 +17,7 @@ public:
         glBindVertexArray(handle_);
         vertex_buffer_.Active();
         index_buffer_.Active();
-        DefineVertexAttrib<Element_t>::Define();
+        vertex_buffer_.DescribeData();
         glBindVertexArray(0);
     }
 
@@ -60,6 +53,25 @@ public:
         }
         else{
             glDrawElements(draw_type, index_num_to_use, GL_UNSIGNED_INT, 0);
+        }
+    }
+
+    template<class T>
+    void AddInstanceBuffer(T &buffer) {
+        Active();
+        buffer.DescribeData();
+    }
+
+    void DrawInstanceByIndex(GLenum draw_type, int instance_num = 1, int index_num_to_use = -1) {
+        Active();
+        if (index_num_to_use == -1) {
+            index_num_to_use = index_buffer_.Size();
+        }
+        index_num_to_use = std::min(index_num_to_use, index_buffer_.Size());
+        if (index_num_to_use == 0) {
+            glDrawArraysInstanced(draw_type, 0, vertex_buffer_.Size(), instance_num);
+        } else {
+            glDrawElementsInstanced(draw_type, index_num_to_use, GL_UNSIGNED_INT, 0, instance_num);
         }
     }
 
