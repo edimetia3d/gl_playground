@@ -36,16 +36,13 @@ struct PointWithColor {
     T r;
     T g;
     T b;
-};
 
-template<>
-struct DefineVertexAttrib<PointWithColor<float>> {
-    static void Define() {
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(PointWithColor<float>),
-                              (void *) offsetof(PointWithColor<float>, x));
+    static void Describe() {
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(PointWithColor<T>),
+                              (void *) offsetof(PointWithColor<T>, x));
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(9, 3, GL_FLOAT, GL_FALSE, sizeof(PointWithColor<float>),
-                              (void *) offsetof(PointWithColor<float>, r));
+        glVertexAttribPointer(9, 3, GL_FLOAT, GL_FALSE, sizeof(PointWithColor<T>),
+                              (void *) offsetof(PointWithColor<T>, r));
         glEnableVertexAttribArray(9);
     }
 };

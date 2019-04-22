@@ -19,16 +19,16 @@ struct SkyBoxPoint {
     T pos_x;
     T pos_y;
     T pos_z;
+
+    static void Describe();
 };
 
-template<>
-struct DefineVertexAttrib<SkyBoxPoint<float>> {
-    static void Define() {
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(SkyBoxPoint<float>),
-                              (void *) offsetof(SkyBoxPoint<float>, pos_x));
-        glEnableVertexAttribArray(0);
-    }
-};
+template<class T>
+void SkyBoxPoint<T>::Describe() {
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(SkyBoxPoint<T>),
+                          (void *) offsetof(SkyBoxPoint<T>, pos_x));
+    glEnableVertexAttribArray(0);
+}
 
 class glSkyBox_t : public UnCopyable {
 public:

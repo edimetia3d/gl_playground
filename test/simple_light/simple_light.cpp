@@ -30,21 +30,18 @@ struct Point_Normal_TexturePos {
     T norm_z;
     T texture_x;
     T texture_y;
-};
 
-template<>
-struct DefineVertexAttrib<Point_Normal_TexturePos<float>> {
-    static void Define() {
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Point_Normal_TexturePos<float>),
-                              (void *) offsetof(Point_Normal_TexturePos<float>, pos_x));
+    static void Describe() {
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Point_Normal_TexturePos<T>),
+                              (void *) offsetof(Point_Normal_TexturePos<T>, pos_x));
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Point_Normal_TexturePos<float>),
-                              (void *) offsetof(Point_Normal_TexturePos<float>, norm_x));
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Point_Normal_TexturePos<T>),
+                              (void *) offsetof(Point_Normal_TexturePos<T>, norm_x));
         glEnableVertexAttribArray(1);
 
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Point_Normal_TexturePos<float>),
-                              (void *) offsetof(Point_Normal_TexturePos<float>, texture_x));
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Point_Normal_TexturePos<T>),
+                              (void *) offsetof(Point_Normal_TexturePos<T>, texture_x));
         glEnableVertexAttribArray(2);
     }
 };

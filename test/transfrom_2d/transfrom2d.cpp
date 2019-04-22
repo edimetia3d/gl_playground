@@ -31,16 +31,13 @@ struct PointWithTexturePos {
     T pos_z;
     T texture_x;
     T texture_y;
-};
 
-template<>
-struct DefineVertexAttrib<PointWithTexturePos<float>> {
-    static void Define() {
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(PointWithTexturePos<float>),
-                              (void *) offsetof(PointWithTexturePos<float>, pos_x));
+    static void Describe() {
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(PointWithTexturePos<T>),
+                              (void *) offsetof(PointWithTexturePos<T>, pos_x));
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(PointWithTexturePos<float>),
-                              (void *) offsetof(PointWithTexturePos<float>, texture_x));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(PointWithTexturePos<T>),
+                              (void *) offsetof(PointWithTexturePos<T>, texture_x));
         glEnableVertexAttribArray(1);
     }
 };

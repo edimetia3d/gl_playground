@@ -10,16 +10,17 @@
 #include "glShader_t.h"
 #include <vector>
 
+template<class T>
 struct AssimpVertex {
     struct Vec3 {
-        float x;
-        float y;
-        float z;
+        T x;
+        T y;
+        T z;
     };
 
     struct Vec2 {
-        float x;
-        float y;
+        T x;
+        T y;
     };
 
     // position
@@ -32,11 +33,12 @@ struct AssimpVertex {
     Vec3 tangent;
     // bitangent
     Vec3 bitangent;
+
+    static void Describe();
 };
 
-template<>
-struct DefineVertexAttrib<AssimpVertex> {
-    static void Define() {
+template<class T>
+void AssimpVertex<T>::Describe() {
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(AssimpVertex),
                               (void *) offsetof(AssimpVertex, position));
@@ -56,8 +58,8 @@ struct DefineVertexAttrib<AssimpVertex> {
         glEnableVertexAttribArray(4);
         glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(AssimpVertex),
                               (void *) offsetof(AssimpVertex, bitangent));
-    }
-};
+
+}
 
 enum class TextureType {
     DIFFUSE,
@@ -118,7 +120,7 @@ public:
         texture_names_.push_back(name_in_shader);
     }
 
-    glVertexArray_t<AssimpVertex> vertex_;
+    glVertexArray_t<AssimpVertex<float>> vertex_;
 
 private:
     std::vector<std::shared_ptr<glTexture2D_t>> textures_;

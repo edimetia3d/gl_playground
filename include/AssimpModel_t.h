@@ -61,7 +61,7 @@ private:
 
         // Walk through each of the mesh's vertices
         for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
-            AssimpVertex vertex;
+            AssimpVertex<float> vertex;
             // positions
             vertex.position.x = mesh->mVertices[i].x;
             vertex.position.y = mesh->mVertices[i].y;
