@@ -4,8 +4,6 @@ project(gl_playground)
 set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-m64)
 
-find_package(OpenGL REQUIRED)
-
 #dependence
 
 include_directories(dependences/glfw/include)

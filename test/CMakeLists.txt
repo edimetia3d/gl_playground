@@ -1,4 +1,7 @@
+
 link_libraries(gl_playground)
+
+find_package(OpenGL REQUIRED)
 
 option(GLFW_INSTALL "Generate installation target" OFF)
 option(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" OFF)
@@ -18,7 +21,7 @@ if (APPLE)
     find_library(COCOA_LIBRARY Cocoa)
     find_library(IOKIT_LIBRARY IOKit)
     find_library(COREVIDEO_LIBRARY CoreVideo)
-    link_libraries(gl_playground ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY})
+    link_libraries(${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY})
 endif (APPLE)
 
 include_directories(../include)
