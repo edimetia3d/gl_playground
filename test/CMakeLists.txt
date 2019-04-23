@@ -40,3 +40,5 @@ add_executable(simple_assimp ./simple_assimp/simple_assimp.cpp)
 add_executable(simple_frame_buffer ./simple_frame_buffer/simple_frame_buffer.cpp)
 
 add_executable(simple_skybox ./simple_skybox/skybox.cpp)
+
+add_executable(hello_triangle_instance hello_triangle_instance.cpp)
