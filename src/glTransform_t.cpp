@@ -2,11 +2,11 @@
 // Created by edimetia3d on 2019-03-30.
 //
 
-#include "include/glTransform_t.h"
+#include "../include/glTransform_t.h"
 
-#include "dependences/glm/glm/glm.hpp"
-#include "dependences/glm/glm/gtx/transform.hpp"
-#include "dependences/glm/glm/gtc/type_ptr.hpp"
+#include "glm/glm.hpp"
+#include "glm/gtx/transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace MatrixPrivate {
     struct glMatrix_Impl {

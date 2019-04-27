@@ -2,7 +2,7 @@
 // Created by edimetia3d on 2019-03-31.
 //
 
-#include "include/GLFW_FPS_Camera.h"
+#include "../include/GLFW_FPS_Camera.h"
 
 void GLFW_FPS_Camera::UpdateByKey(GLFWwindow *window, double last_frame_duration) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)

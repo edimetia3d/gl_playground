@@ -16,7 +16,7 @@ include_directories(dependences/glm)
 include_directories(dependences/assimp/include)
 
 #project
-file(GLOB gl_playground_SRC ${CMAKE_CURRENT_SOURCE_DIR}/*.c*
+file(GLOB gl_playground_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c*
                             ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h*)
 
 add_library(gl_playground STATIC ${gl_playground_SRC} ${GLAD_SRC})

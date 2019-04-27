@@ -2,7 +2,7 @@
 // Created by edimetia3d on 2019-04-17.
 //
 
-#include "include/glSkyBox_t.h"
+#include "../include/glSkyBox_t.h"
 
 static char vert_code[] = "#version 330 core\n"
                           "layout (location = 0) in vec3 aPos;\n"

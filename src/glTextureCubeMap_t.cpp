@@ -2,12 +2,12 @@
 // Created by edimetia3d on 2019-04-15.
 //
 
-#include "include/glTextureCubeMap_t.h"
+#include "../include/glTextureCubeMap_t.h"
 
 #define STB_IMAGE_STATIC
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "dependences/stb_image.h"
+#include "../dependences/stb_image.h"
 
 void
 glTextureCubeMap_t::LoadFromFile(const std::vector<std::string> &filenames, GLenum device_format, GLenum host_format,

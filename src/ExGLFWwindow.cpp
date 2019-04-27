@@ -5,7 +5,7 @@
 #include <chrono>
 #include <thread>
 
-#include "include/ExGLFWwindow.h"
+#include "../include/ExGLFWwindow.h"
 
 std::map<GLFWwindow *, ExGLFWwindow *> ExGLFWwindow::link_map;
 
