@@ -1,23 +1,16 @@
 //
 // License: MIT
 //
-#define GLAD_GL_IMPLEMENTATION
-#include <glad/gl.h>
+#include "glpp/ui/ui_window.h"
 
-#include <GLFW/glfw3.h>
+
+void RenderNothing(glpp::ui::ExGFLWWindow::RenderFunArg *arg) {
+  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
+}
 
 int main() {
-  glfwInit();
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-  GLFWwindow *window = glfwCreateWindow(800, 600, "Hello, World!", nullptr, nullptr);
-  glfwMakeContextCurrent(window);
-  gladLoadGL(glfwGetProcAddress);
-  while (!glfwWindowShouldClose(window)) {
-    glfwSwapBuffers(window);
-    glfwPollEvents();
-  }
-  glfwDestroyWindow(window);
-  glfwTerminate();
+  glpp::ui::ExGFLWWindow window("hello window", 4, 2);
+  window.Show(RenderNothing, nullptr);
   return 0;
 }
