@@ -67,6 +67,7 @@ struct GLFWCallBack {
     auto handler = p->CurrentIOHandler();
     auto on_press = handler->OnPressRegistry();
     auto on_release = handler->OnReleaseRegistry();
+    auto on_repeate = handler->OnRepeatRegistry();
     if (action == GLFW_PRESS) {
       if (on_press.count(key) == 1) {
         on_press[key](scancode, mods);
@@ -74,6 +75,11 @@ struct GLFWCallBack {
     } else if (action == GLFW_RELEASE) {
       if (on_release.count(key) == 1) {
         on_release[key](scancode, mods);
+      }
+    } else {
+      assert(action == GLFW_REPEAT);
+      if (on_repeate.count(key) == 1) {
+        on_repeate[key](scancode, mods);
       }
     }
   }
@@ -126,6 +132,7 @@ ExGFLWWindow::~ExGFLWWindow() {
 void ExGFLWWindow::Show(ExGFLWWindow::RenderFnType fun, IOHandler *io_handler) {
   Active();
   if (io_handler) {
+    io_handler->BindWindow(this);
     current_io_handler_ = io_handler;
     auto on_press = io_handler->OnPressRegistry();
     // inject a default handler for escape key
