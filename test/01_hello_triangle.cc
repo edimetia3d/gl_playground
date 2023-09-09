@@ -56,6 +56,7 @@ struct SimpleTriangle {
                             "}\n\0";
 };
 
+#ifndef AS_HEADER
 int main() {
   glpp::ui::ExGFLWWindow window("hello triangle", 4, 2);
   SimpleTriangle triangle;
@@ -69,3 +70,4 @@ int main() {
   window.Show(render_fun, nullptr);
   return 0;
 }
+#endif
