@@ -49,13 +49,27 @@ private:
 };
 
 struct GLFWCallBack {
+  static double &CursorLastX() {
+    thread_local double v;
+    return v;
+  }
+  static double &CursorLastY() {
+    thread_local double v;
+    return v;
+  }
+
+  static void CursorEnterCB(GLFWwindow *window, int entered) {
+    if (entered) {
+      glfwGetCursorPos(window, &CursorLastX(), &CursorLastY());
+    }
+  }
+
   static void CursorPosCB(GLFWwindow *window, double xpos, double ypos) {
-    thread_local double last_x = xpos;
-    thread_local double last_y = ypos;
+
     auto *p = InstanceTracker::Instance().Get(window);
-    p->CurrentIOHandler()->OnMouseMove(xpos, ypos, xpos - last_x, ypos - last_y);
-    last_x = xpos;
-    last_y = ypos;
+    p->CurrentIOHandler()->OnMouseMove(xpos, ypos, xpos - CursorLastX(), ypos - CursorLastY());
+    CursorLastX() = xpos;
+    CursorLastY() = ypos;
   }
 
   static void UpdateViewPort(GLFWwindow *window, int buffer_width, int buffer_height) {
@@ -86,10 +100,12 @@ struct GLFWCallBack {
   static void InstallIOCallBack(GLFWwindow *window) {
     glfwSetCursorPosCallback(window, CursorPosCB);
     glfwSetKeyCallback(window, KeyboardCB);
+    glfwSetCursorEnterCallback(window, CursorEnterCB);
   }
   static void UninstallIOCallBack(GLFWwindow *window) {
     glfwSetCursorPosCallback(window, nullptr);
     glfwSetKeyCallback(window, nullptr);
+    glfwSetCursorEnterCallback(window, nullptr);
   }
 };
 
@@ -141,6 +157,9 @@ void ExGFLWWindow::Show(ExGFLWWindow::RenderFnType fun, IOHandler *io_handler) {
         glfwSetWindowShouldClose(glfwGetCurrentContext(), true);
       };
     }
+    if (io_handler->ShouldHideCursor()) {
+      glfwSetInputMode(raw_window_, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    }
     GLFWCallBack::InstallIOCallBack(raw_window_);
   } else {
     current_io_handler_ = nullptr;
@@ -153,5 +172,10 @@ void ExGFLWWindow::Show(ExGFLWWindow::RenderFnType fun, IOHandler *io_handler) {
     glfwSwapBuffers(raw_window_);
     glfwPollEvents();
   }
+}
+std::tuple<int, int> ExGFLWWindow::WidthHeight() const {
+  int width, height;
+  glfwGetWindowSize(raw_window_, &width, &height);
+  return {width, height};
 }
 } // namespace glpp::ui

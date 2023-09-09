@@ -52,7 +52,7 @@ public:
   void CompileFromFile(const std::vector<std::string> &all_vtx_filepath,
                        const std::vector<std::string> &all_frag_filepath);
 
-  template <class T> void SetUniform(T *value);
+  template <class T> void SetUniform(const std::string &var_name_in_shader, const T &host_data);
 
   GLuint GetHandle() { return handle_; }
 

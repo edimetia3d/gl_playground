@@ -7,6 +7,7 @@
 
 #include <functional>
 #include <string>
+#include <tuple>
 
 #include <glpp/ui/io_handler.h>
 
@@ -46,6 +47,8 @@ public:
   GLFWwindow *Handle() { return raw_window_; }
 
   IOHandler *CurrentIOHandler() { return current_io_handler_; }
+
+  std::tuple<int, int> WidthHeight() const;
 
 private:
   GLFWwindow *raw_window_ = nullptr;

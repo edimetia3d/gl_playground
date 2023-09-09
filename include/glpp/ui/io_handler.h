@@ -15,6 +15,7 @@ class IOHandler {
 public:
   using KeyHandler = std::function<void(int scancode, int modifier)>;
   virtual void OnMouseMove(double x, double y, double dx, double dy) {}
+  virtual bool ShouldHideCursor() { return false; }
 
   std::map<int, KeyHandler> &OnPressRegistry() { return on_press_; }
   std::map<int, KeyHandler> &OnReleaseRegistry() { return on_release_; }

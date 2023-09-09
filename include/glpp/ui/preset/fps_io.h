@@ -24,6 +24,8 @@ public:
 
   void OnMouseMove(double x, double y, double dx, double dy) override;
 
+  bool ShouldHideCursor() override { return true; }
+
   // A tuple of (camera_pos, camera_direction,camera_right)
   std::tuple<glm::vec3, glm::vec3, glm::vec3> GetNow();
 

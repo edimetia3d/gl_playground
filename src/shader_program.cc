@@ -4,6 +4,9 @@
 
 #include "glpp/shader_program.h"
 
+#include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
 #include <fstream>
 
 namespace glpp {
@@ -96,4 +99,14 @@ void ShaderProgram::CompileFromFile(const std::vector<std::string> &all_vtx_file
 
   Compile(vtx_strings, frag_strings);
 }
+
+template <>
+void ShaderProgram::SetUniform<glm::mat4>(const std::string &var_name_in_shader,
+                                          const glm::mat4 &host_data) {
+
+  Active();
+  glUniformMatrix4fv(glGetUniformLocation(handle_, var_name_in_shader.c_str()), 1, GL_FALSE,
+                     glm::value_ptr(host_data));
+}
+
 } // namespace glpp

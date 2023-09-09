@@ -13,7 +13,7 @@
 namespace glpp::ui {
 void FPSIOHandler::OnMouseMove(double x, double y, double dx, double dy) {
   camera_yaw += dx * rotate_sensitivity_;
-  camera_pitch += dy * rotate_sensitivity_;
+  camera_pitch -= dy * rotate_sensitivity_; // reversed to match FPS convention
 
   // make sure that when pitch is out of bounds, screen doesn't get flipped
   camera_pitch = std::clamp(camera_pitch, -89.9f, 89.9f);
@@ -36,12 +36,6 @@ FPSIOHandler::FPSIOHandler() {
     camera_speed_tic[1] = glfwGetTime();
     camera_speed_mask[1] = 1;
   };
-  auto OnCtrlPress = [this](int scancode, int modifier) {
-    glfwSetInputMode(window_->Handle(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-  };
-  auto OnCtrlRelease = [this](int scancode, int modifier) {
-    glfwSetInputMode(window_->Handle(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-  };
   auto OnESCPress = [this](int scancode, int modifier) {
     glfwSetWindowShouldClose(window_->Handle(), true);
   };
@@ -52,14 +46,12 @@ FPSIOHandler::FPSIOHandler() {
   OnPressRegistry()[GLFW_KEY_S] = OnSPress;
   OnPressRegistry()[GLFW_KEY_A] = OnAPress;
   OnPressRegistry()[GLFW_KEY_D] = OnDPress;
-  OnPressRegistry()[GLFW_KEY_LEFT_CONTROL] = OnCtrlPress;
   OnPressRegistry()[GLFW_KEY_ESCAPE] = OnESCPress;
 
   OnReleaseRegistry()[GLFW_KEY_W] = OnWSRelease;
   OnReleaseRegistry()[GLFW_KEY_S] = OnWSRelease;
   OnReleaseRegistry()[GLFW_KEY_A] = OnADRelease;
   OnReleaseRegistry()[GLFW_KEY_D] = OnADRelease;
-  OnReleaseRegistry()[GLFW_KEY_LEFT_CONTROL] = OnCtrlRelease;
 }
 
 std::tuple<glm::vec3, glm::vec3, glm::vec3> FPSIOHandler::GetNow() {
