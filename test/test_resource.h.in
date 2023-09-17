@@ -1,0 +1,8 @@
+
+#pragma once
+#include <string>
+static const char *const TEST_RESOURCE_PATH = "@TEST_RESOURCE_PATH@";
+
+static inline std::string TestRes(const std::string &rel_path) {
+  return std::string(TEST_RESOURCE_PATH) + "/" + rel_path;
+}

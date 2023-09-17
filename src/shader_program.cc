@@ -109,4 +109,10 @@ void ShaderProgram::SetUniform<glm::mat4>(const std::string &var_name_in_shader,
                      glm::value_ptr(host_data));
 }
 
+template <>
+void ShaderProgram::SetUniform<GLint>(const std::string &var_name_in_shader, const int &host_data) {
+  Active();
+  glUniform1i(glGetUniformLocation(handle_, var_name_in_shader.c_str()), host_data);
+}
+
 } // namespace glpp
