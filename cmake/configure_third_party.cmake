@@ -38,6 +38,17 @@ CPMAddPackage(
     DOWNLOAD_ONLY TRUE
 )
 
+CPMAddPackage(
+    NAME GH_STB
+    GITHUB_REPOSITORY "nothings/stb"
+    GIT_TAG "5736b15f7ea0ffb08dd38af21067c314d6a3aae9"
+    EXCLUDE_FROM_ALL TRUE
+    CPM_USE_NAMED_CACHE_DIRECTORIES TRUE
+    DOWNLOAD_ONLY TRUE
+)
+add_library(stb INTERFACE)
+target_include_directories(stb INTERFACE ${GH_STB_SOURCE_DIR})
+
 function(__generate_glad)
   set(GEN_GALD_OUTPUT_DIR ${GH_GLAD_BINARY_DIR}/generated/${GLPP_CORE_PROFILE_VERSION})
 
